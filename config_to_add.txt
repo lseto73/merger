@@ -1,0 +1,28 @@
+          OracleCloud-apt:
+            conf:
+              app_id: '15180360600820178'
+              app_limits:
+                init_fail_pct:
+                  enabled: true
+                  hard_limit: 5
+                  soft_limit: 5
+                ntt:
+                  enabled: false
+                  hard_limit: 0
+                  soft_limit: 0
+                pps:
+                  enabled: false
+                  hard_limit: 0
+                  soft_limit: 0
+                rtt:
+                  enabled: true
+                  hard_limit: 200
+                  soft_limit: 200
+                txn_fail_pct:
+                  enabled: true
+                  hard_limit: 5
+                  soft_limit: 5
+              path_limits:
+            disabled: false
+            entity_id:
+            namespace: thresholds/apps

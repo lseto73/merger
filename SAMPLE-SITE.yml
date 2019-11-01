@@ -1,0 +1,550 @@
+---
+type: cloudgenix template
+version: 1.0
+# Created at 2019-10-07T06:22:54.512737Z
+# by leo@cloudgenix.com
+sites v4.3:
+  Dan Home:
+    address:
+      city: Sunnyvale
+      country: United States
+      post_code: '94087'
+      state: CA
+      street: 1369 Selo Dr
+      street2:
+    admin_state: active
+    description:
+    dhcpservers v2.0:
+    - broadcast_address: 1.2.3.255
+      custom_options:
+      - option_definition: option my_43 code 43 = text
+        option_value: option my_43 "as"
+      default_lease_time: 43200
+      description:
+      disabled: false
+      dns_servers:
+      - 8.8.8.8
+      domain_name:
+      gateway: 1.2.3.4
+      ip_ranges:
+      - end_ip: 1.2.3.20
+        start_ip: 1.2.3.10
+      max_lease_time: 86400
+      network_context_id:
+      static_mappings:
+      subnet: 1.2.3.0/24
+      tags:
+    element_cluster_role: SPOKE
+    elements v2.2:
+      Dan 2k:
+        admin_action:
+        allowed_roles:
+        - HUB
+        - SPOKE
+        cluster_insertion_mode:
+        cluster_member_id:
+        connected: true
+        deployment_op:
+        description:
+        element_extensions v2.0:
+          alg:
+            conf:
+              rules:
+              - alg: SIP
+                enabled: true
+            disabled: false
+            entity_id:
+            namespace: algconfig
+          d1:
+            conf:
+              max_jitter: 0
+              max_latency: 0
+              max_pkt_loss: 0
+            disabled: false
+            entity_id: '15579444101460066'
+            namespace: thresholds/lqm/media
+          d2:
+            conf:
+              max_jitter: 0
+              max_latency: 0
+              max_pkt_loss: 0
+            disabled: false
+            entity_id: '15579444107940196'
+            namespace: thresholds/lqm/media
+          dan:
+            conf:
+              rules:
+              - action: DENY
+                app: PING
+                prefix: 1.2.3.4/32
+              - action: ALLOW
+                app: PING
+                prefix: 10.0.0.0/8
+              - action: ALLOW
+                app: SSH
+                prefix: 10.0.0.0/8
+            disabled: false
+            entity_id: '1'
+            namespace: devicemanagement/interface
+          dan 2:
+            conf:
+              rules:
+              - action: DENY
+                app: PING
+                prefix: 1.2.3.4/32
+              - action: ALLOW
+                app: PING
+                prefix: 10.0.0.0/8
+              - action: ALLOW
+                app: SSH
+                prefix: 10.0.0.0/8
+            disabled: false
+            entity_id: '2'
+            namespace: devicemanagement/interface
+          dnsmasq config:
+            conf:
+              config:
+              - '## Recommended options:'
+              - '# Do not cache negitive responses.'
+              - no-negcache
+              - '# Set Cache size'
+              - cache-size=10000
+              - '# Limit UDP packet size to 1280'
+              - edns-packet-max=1200
+              - '# Don''t do work for short names, require fqdn'
+              - domain-needed
+              - ''
+              - '## Interface(s) to listen on. If not specified, will listen on ALL
+                by default.'
+              - interface=cgx_interface:controller1
+              - ''
+              - '## DNS Servers to use. Note, if using INTERNET, PRIVATE WAN interfaces,
+                Or Third Party Tunnel'
+              - '## (inner IP) directly, can BIND to interface:'
+              - server=8.8.8.8@10.0.123.41
+              - server=/cloudgenix.com/1.1.1.1@10.0.123.41
+            disabled: false
+            entity_id: '1'
+            namespace: dnsmasq/prod
+          fc config:
+            conf:
+              arp_per_prefix_router_failure: true
+              sub_optimal_flow_list_reval: true
+            disabled: false
+            entity_id: '8844'
+            namespace: fcconfig
+          test:
+            conf:
+              rules:
+              - action: ALLOW
+                app: SSH
+                prefix: 54.67.32.60/32
+            disabled: false
+            entity_id: '3'
+            namespace: devicemanagement/interface
+          test 2:
+            conf:
+              rules:
+              - action: ALLOW
+                app: SSH
+                prefix: 54.67.32.60/32
+            disabled: false
+            entity_id: controller 1
+            namespace: devicemanagement/interface
+          test_1:
+            conf:
+              rules:
+              - action: NONAT
+                dst_port: 0
+                dst_prefix: 10.24.17.230/32
+                nat_pool_end: 0.0.0.0
+                nat_pool_start: 0.0.0.0
+                protocol: '0'
+                redirect_port: 0
+                src_port: 0
+                src_prefix: 172.31.9.4/32
+            disabled: true
+            entity_id: '1'
+            namespace: natpolicy/interface
+          OracleCloud-apt:
+            conf:
+              app_id: '15180360600820178'
+              app_limits:
+                init_fail_pct:
+                  enabled: true
+                  hard_limit: 5
+                  soft_limit: 5
+                ntt:
+                  enabled: false
+                  hard_limit: 0
+                  soft_limit: 0
+                pps:
+                  enabled: false
+                  hard_limit: 0
+                  soft_limit: 0
+                rtt:
+                  enabled: true
+                  hard_limit: 200
+                  soft_limit: 200
+                txn_fail_pct:
+                  enabled: true
+                  hard_limit: 5
+                  soft_limit: 5
+              path_limits:
+            disabled: false
+            entity_id: '15180360600820178'
+            namespace: thresholds/apps
+        element_security_zones v2.0:
+        - interface_ids:
+          - service_link-15571702574680042
+          lannetwork_ids:
+          waninterface_ids:
+          wanoverlay_ids:
+          zone_id: GUEST
+        interfaces v4.6:
+          '1':
+            admin_up: true
+            attached_lan_networks:
+            bound_interfaces:
+            bypass_pair:
+            description: ''
+            dhcp_relay:
+            ethernet_port:
+              full_duplex: false
+              speed: 0
+            ipv4_config:
+              dhcp_config:
+              dns_v4_config:
+              routes:
+              static_config:
+              type: dhcp
+            mac_address:
+            mtu: 1500
+            nat_address: 24.4.177.43
+            nat_port: 4500
+            network_context_id:
+            parent:
+            pppoe_config:
+            scope: local
+            service_link_config:
+            site_wan_interface_ids:
+            - Circuit to Comcast
+            sub_interface:
+            tags:
+            type: port
+            used_for: public
+          '23':
+            admin_up: true
+            attached_lan_networks:
+            bound_interfaces:
+            bypass_pair:
+              lan: '3'
+              lan_state_propagation: false
+              use_relay: false
+              wan: '2'
+            description:
+            dhcp_relay:
+            ethernet_port:
+              full_duplex: false
+              speed: 0
+            ipv4_config:
+            mac_address:
+            mtu: 1500
+            nat_address:
+            nat_port: 0
+            network_context_id:
+            parent:
+            pppoe_config:
+            scope: local
+            service_link_config:
+            site_wan_interface_ids:
+            - Circuit to NoMPLS
+            sub_interface:
+            tags:
+            type: bypasspair
+            used_for: private-l2
+          controller 1:
+            admin_up: true
+            attached_lan_networks:
+            bound_interfaces:
+            bypass_pair:
+            description: ''
+            dhcp_relay:
+            ethernet_port:
+              full_duplex: false
+              speed: 0
+            ipv4_config:
+              dhcp_config:
+              dns_v4_config:
+              routes:
+              static_config:
+              type: dhcp
+            mac_address:
+            mtu: 1500
+            nat_address:
+            nat_port: 0
+            network_context_id:
+            parent:
+            pppoe_config:
+            scope: local
+            service_link_config:
+            site_wan_interface_ids:
+            sub_interface:
+            tags:
+            type: port
+            used_for: none
+          service_link-15571702574680042:
+            admin_up: true
+            attached_lan_networks:
+            bound_interfaces:
+            bypass_pair:
+            description:
+            dhcp_relay:
+            ethernet_port:
+              full_duplex: false
+              speed: 0
+            ipv4_config:
+              dhcp_config:
+              dns_v4_config:
+              routes:
+              static_config:
+                address: 10.10.10.10/31
+              type: static
+            mac_address:
+            mtu: 1400
+            nat_address:
+            nat_port: 0
+            network_context_id:
+            parent: '1'
+            pppoe_config:
+            scope: local
+            service_link_config:
+              ipsec_config:
+                authentication:
+                ipsec_profile_id: Azure-IPSec-Profile
+              peer:
+              service_endpoint_id: Azure-VWAN
+              type: ipsec
+            site_wan_interface_ids:
+            sub_interface:
+            tags:
+            type: service_link
+            used_for: none
+        l3_direct_private_wan_forwarding: true
+        l3_lan_forwarding: true
+        model_name: ion 3102v
+        network_policysetstack_id:
+        ntp v2.0:
+        - description: Default NTP template created by super user.
+          name: default
+          ntp_servers:
+          - host: 0.cloudgenix.pool.ntp.org
+            max_poll: 10
+            min_poll: 9
+            version: 4
+          - host: 1.cloudgenix.pool.ntp.org
+            max_poll: 10
+            min_poll: 9
+            version: 4
+          - host: 2.cloudgenix.pool.ntp.org
+            max_poll: 10
+            min_poll: 9
+            version: 4
+          - host: 3.cloudgenix.pool.ntp.org
+            max_poll: 10
+            min_poll: 9
+            version: 4
+          - host: time.nist.gov
+            max_poll: 15
+            min_poll: 13
+            version: 4
+          source_interface_ids:
+          tags:
+        priority_policysetstack_id:
+        role: SPOKE
+        routing:
+          bgp:
+            global_config v2.0:
+              admin_distance: 20
+              adv_interval: 1
+              graceful_restart: false
+              hold_time: 90
+              keepalive_time: 30
+              local_as_num: '65343'
+              maximum_paths: 1
+              md5_secret:
+              multi_hop_limit: 1
+              peer_retry_time: 120
+              prefix_adv_type: aggregate-manual
+              prefixes_to_adv_to_wan:
+              router_id:
+              stalepath_time: 120
+          static v2.0:
+          - description:
+            destination_prefix: 5.5.5.5/32
+            network_context_id:
+            nexthops:
+            - admin_distance: 1
+              nexthop_interface_id: service_link-15571702574680042
+              nexthop_ip:
+              self: false
+            scope: global
+            tags:
+        serial_number: 564d187a-9700-120d-46b3-764e7628a64d
+        snmp:
+          agent v2.0:
+          - description:
+            tags:
+            v2_config:
+              community: public
+              enabled: true
+            v3_config:
+              enabled: true
+              users_access:
+              - auth_phrase:
+                auth_type: sha
+                enc_phrase:
+                enc_type: none
+                engine_id: '323452345363435'
+                security_level: auth
+                user_name: u_snmp
+              - auth_phrase:
+                auth_type: sha
+                enc_phrase:
+                enc_type: aes
+                engine_id: '3624356345643674567'
+                security_level: private
+                user_name: u_snmmp3
+          traps v2.0:
+          - description:
+            enabled: true
+            server_ip: 10.0.123.1
+            source_interface: controller 1
+            tags:
+            v2_config:
+              community: g235345345
+            v3_config:
+            version: v2
+          - description:
+            enabled: true
+            server_ip: 10.0.123.1
+            source_interface: controller 1
+            tags:
+            v2_config:
+            v3_config:
+              user_access:
+                auth_phrase:
+                auth_type: sha
+                enc_phrase:
+                enc_type: none
+                engine_id: '3423543534'
+                security_level: auth
+                user_name: u_snmp
+            version: v3
+        software_version: 5.1.3-b16
+        spoke_ha_config:
+        state: bound
+        tags:
+        tenant_id: '10000'
+        toolkit v2.2:
+          account_disable_interval: 5
+          inactive_interval: 15
+          otpkey_version: 1
+          retry_login_count: 5
+          ssh_enabled: true
+          ssh_outbound_enabled: false
+    lannetworks v3.1:
+      default_dan-home_11900928:
+        description:
+        ipv4_config:
+          default_routers:
+          dhcp_relay:
+          dhcp_server:
+          prefixes:
+          - 192.168.1.0/24
+        network_context_id:
+        scope: global
+        tags:
+      default_dan-home_908560894:
+        description:
+        ipv4_config:
+          default_routers:
+          dhcp_relay:
+          dhcp_server:
+          prefixes:
+          - 10.99.98.0/24
+        network_context_id:
+        scope: global
+        tags:
+    location:
+      description:
+      latitude: 36.87961959838867
+      longitude: -119.8828125
+    network_policysetstack_id: NWM-dfault
+    policy_set_id:
+    priority_policysetstack_id: default qos. -- dan (Simple)
+    security_policyset_id: sriram
+    service_binding: US
+    site_security_zones v2.0:
+    - networks:
+      - network_id: Circuit to AT&T LNB1120
+        network_type: wan_network
+      - network_id: Circuit to Comcast
+        network_type: wan_network
+      zone_id: GUEST
+    spokeclusters v2.0:
+      PIT - HA:
+        advertisement_interval: 1.0
+        description:
+        preempt: true
+        tags:
+    tags:
+    waninterfaces v2.3:
+      Circuit to AT&T LNB1120:
+        bfd_mode: aggressive
+        bw_config_mode: manual
+        bwc_enabled: true
+        cost: 128
+        description:
+        label_id: Metered 3G/4G/LTE Internet
+        link_bw_down: 30.0
+        link_bw_up: 10.0
+        lqm_enabled: true
+        network_id: AT&T LNB1120
+        tags:
+      Circuit to Azure Public:
+        bfd_mode: aggressive
+        bw_config_mode: manual
+        bwc_enabled: true
+        cost: 128
+        description:
+        label_id: Ethernet Internet
+        link_bw_down: 30.0
+        link_bw_up: 10.0
+        lqm_enabled: true
+        network_id: Azure Public
+        tags:
+      Circuit to Comcast:
+        bfd_mode: aggressive
+        bw_config_mode: manual
+        bwc_enabled: true
+        cost: 128
+        description: 'null'
+        label_id: Internet Cable
+        link_bw_down: 10.0
+        link_bw_up: 10.0
+        lqm_enabled: true
+        network_id: Comcast
+        tags:
+      Circuit to NoMPLS:
+        bfd_mode: aggressive
+        bw_config_mode: manual
+        bwc_enabled: true
+        cost: 128
+        description: 'null'
+        label_id: NoMPLS
+        link_bw_down: 10.0
+        link_bw_up: 10.0
+        lqm_enabled: true
+        network_id: NoMPLS
+        tags:
